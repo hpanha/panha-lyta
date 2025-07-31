@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise For You</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for a more romantic feel */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FFF8F8; /* Soft pinkish background */
+        }
+        .font-dancing {
+            font-family: 'Dancing Script', cursive;
+        }
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(255, 182, 193, 0.3); /* Light pink hearts */
+            animation: float 15s infinite linear;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0); }
+            100% { transform: translateY(-10vh) scale(1.5); }
+        }
+        .card {
+            background-color: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #FEE2E2;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInAnimation 0.8s ease-out forwards;
+        }
+        @keyframes fadeInAnimation {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Staggered animation for list items */
+        .reason-item {
+            opacity: 0;
+            animation: popIn 0.5s ease-out forwards;
+        }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div id="anniversary-gate" class="fixed inset-0 bg-rose-50 z-50 flex items-center justify-center p-4">
+    <div id="gate-card" class="bg-white rounded-2xl shadow-xl p-8 text-center max-w-sm w-full">
+        <h2 class="font-playfair text-3xl text-red-700 mb-4">OUR SECRET CODE...</h2>
+        <p class="text-gray-600 mb-6">HINT: ANNISVERSARY DATE</p>
+        <input type="date" id="anniversary-input" class="w-full p-3 border border-rose-200 rounded-lg text-center focus:ring-2 focus:ring-red-400 focus:outline-none">
+        <button id="submit-date" class="w-full bg-red-500 text-white font-bold py-3 px-4 rounded-lg mt-4 hover:bg-red-600 transition-colors">Unlock Surprise</button>
+        <p id="error-message" class="text-red-500 mt-3 h-5"></p>
+    </div>
+    </div>
+    <!-- Floating hearts background -->
+    <div id="main-content" class="container mx-auto px-4 py-8 md:py-16 hidden">
+    <div id="heart-container" class="heart-bg"></div>
+
+    <div class="container mx-auto px-4 py-8 md:py-16">
+
+        <!-- Header Section -->
+        <header class="text-center mb-16 fade-in">
+            <h1 class="font-dancing text-5xl md:text-7xl text-red-500">To My Dearest Girlfriend</h1>
+            <p class="font-playfair text-xl md:text-2xl mt-4 text-gray-600">A little surprise for you on Girlfriend's Day</p>
+        </header>
+
+        <!-- Time Together Counter -->
+        <section id="counter" class="mb-16">
+            <div class="card p-8 md:p-12 max-w-3xl mx-auto text-center fade-in" style="animation-delay: 0.2s;">
+                <h2 class="font-playfair text-3xl md:text-4xl text-red-700 mb-6">Our Journey Together</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-red-500">
+                    <div>
+                        <p id="days" class="font-playfair text-5xl md:text-6xl">0</p>
+                        <p class="text-sm text-gray-600 uppercase tracking-wider">Days</p>
+                    </div>
+                    <div>
+                        <p id="hours" class="font-playfair text-5xl md:text-6xl">00</p>
+                        <p class="text-sm text-gray-600 uppercase tracking-wider">Hours</p>
+                    </div>
+                    <div>
+                        <p id="minutes" class="font-playfair text-5xl md:text-6xl">00</p>
+                        <p class="text-sm text-gray-600 uppercase tracking-wider">Minutes</p>
+                    </div>
+                    <div>
+                        <p id="seconds" class="font-playfair text-5xl md:text-6xl">00</p>
+                        <p class="text-sm text-gray-600 uppercase tracking-wider">Seconds</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Letter Section -->
+        <section id="letter" class="mb-16">
+            <div class="card p-8 md:p-12 max-w-3xl mx-auto fade-in" style="animation-delay: 0.4s;">
+                <h2 class="font-playfair text-3xl md:text-4xl text-red-700 mb-6">My Love,</h2>
+                <!-- EDIT THIS MESSAGE -->
+                <p class="text-lg leading-relaxed text-gray-700 mb-4">
+                    Happy Girlfriend's Day! I wanted to do something a little different to show you how much you mean to me. You've filled my life with so much joy, laughter, and love. Every moment with you feels like a beautiful dream.
+                </p>
+                <p class="text-lg leading-relaxed text-gray-700 mb-6">
+                    This is just a small token of my affection, a reminder of all the little things that make you so incredibly special to me. Thank you for being you.
+                </p>
+                <p class="text-lg leading-relaxed text-gray-700 font-semibold text-right">
+                    Ur lovely BF,<br>
+                    <!-- EDIT YOUR NAME HERE -->
+                    Panha
+                </p>
+                <!-- END OF EDITABLE MESSAGE -->
+            </div>
+        </section>
+
+        <!-- Reasons I Love You Section -->
+        <section id="reasons" class="mb-16">
+            <div class="card p-8 md:p-12 max-w-3xl mx-auto fade-in" style="animation-delay: 0.6s;">
+                <h2 class="font-playfair text-3xl md:text-4xl text-center text-red-700 mb-8">Your little things that melted me...</h2>
+                <ul id="reasons-list" class="space-y-4 text-lg text-gray-700">
+                    <!-- Reasons will be dynamically added here -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- Photo Gallery Section -->
+        <section id="gallery" class="mb-16">
+             <div class="card p-8 md:p-12 max-w-4xl mx-auto fade-in" style="animation-delay: 0.8s;">
+                <h2 class="font-playfair text-3xl md:text-4xl text-center text-red-700 mb-8">Our Beautiful Moments</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <!-- REPLACE these placeholder images with your own photos -->
+                    <!-- How to: Upload your photos to a site like https://imgur.com/upload and copy the image address -->
+                    <div class="w-full h-[300px] bg-white rounded-lg shadow-md overflow-hidden flex items-center justify-center">
+                        <img src="img/firstdate.jpg" alt="Memory 1" class="class="w-full h-full object-contain"" onerror="this.src='https://placehold.co/400x400/FFE4E1/DC143C?text=Image+Error'">
+                    </div>
+                    <div class="w-full h-[300px] bg-white rounded-lg shadow-md overflow-hidden flex items-center justify-center">
+                        <img src="img/firstselfie.jpg" alt="Memory 2" class="class="w-full h-full object-contain"" onerror="this.src='https://placehold.co/400x400/FFF0F5/FF69B4?text=Image+Error'">
+                    </div>
+                    <div class="w-full h-[300px] bg-white rounded-lg shadow-md overflow-hidden flex items-center justify-center">
+                        <img src="img/conserttgt.jpg" alt="Memory 3" class="class="w-full h-full object-contain"" onerror="this.src='https://placehold.co/400x400/FFC0CB/8B0000?text=Image+Error'">
+                    </div>
+                    <div class="w-full h-[300px] bg-white rounded-lg shadow-md overflow-hidden flex items-center justify-center">
+                        <img src="img/mv.jpg" alt="Memory 4" class="class="w-full h-full object-contain"" onerror="this.src='https://placehold.co/400x400/FFEBEF/DB7093?text=Image+Error'">
+                        <p>Recreate this? 🥹</p>
+                    </div>
+                    <div class="w-full h-[300px] bg-white rounded-lg shadow-md overflow-hidden flex items-center justify-center">
+                        <img src="img/rudeGf.jpg" alt="Memory 5" class="class="w-full h-full object-contain"" onerror="this.src='https://placehold.co/400x400/FFF5F7/C71585?text=Image+Error'">
+                    </div>
+                    <div class="w-full h-[300px] bg-white rounded-lg shadow-md overflow-hidden flex items-center justify-center">
+                        <img src="img/otKitDekTe.jpg" alt="Memory 6" class="class="w-full h-full object-contain"" onerror="this.src='https://placehold.co/400x400/FFEEF2/FF1493?text=Image+Error'">
+                    </div>
+                </div>
+             </div>
+        </section>
+
+        <section id="gallery" class="mb-16">
+             <div class="card p-8 md:p-12 max-w-4xl mx-auto fade-in" style="animation-delay: 0.8s;">
+                <h2 class="font-playfair text-3xl md:text-4xl text-center text-red-700 mb-8">Heart captured moments</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <!-- REPLACE these placeholder images with your own photos -->
+                    <!-- How to: Upload your photos to a site like https://imgur.com/upload and copy the image address -->
+                    <div class="w-full h-[300px] bg-white rounded-lg shadow-md overflow-hidden flex items-center justify-center">
+                        <img src="img/aeon3.jpg" alt="Memory 1" class="class="w-full h-full object-contain"" onerror="this.src='https://placehold.co/400x400/FFE4E1/DC143C?text=Image+Error'">
+                    </div>
+                    <div class="w-full h-[300px] bg-white rounded-lg shadow-md overflow-hidden flex items-center justify-center">
+                        <img src="img/gentleUsAI.jpg" alt="Memory 2" class="class="w-full h-full object-contain"" onerror="this.src='https://placehold.co/400x400/FFF0F5/FF69B4?text=Image+Error'">
+                    </div>
+                    <div class="w-full h-[300px] bg-white rounded-lg shadow-md overflow-hidden flex items-center justify-center">
+                        <img src="img/legPlacement.jpg" alt="Memory 3" class="class="w-full h-full object-contain"" onerror="this.src='https://placehold.co/400x400/FFC0CB/8B0000?text=Image+Error'">
+                    </div>
+                    <div class="w-full h-[300px] bg-white rounded-lg shadow-md overflow-hidden flex items-center justify-center">
+                        <img src="img/hottest baby.jpg" alt="Memory 4" class="class="w-full h-full object-contain"" onerror="this.src='https://placehold.co/400x400/FFEBEF/DB7093?text=Image+Error'">
+                    </div>
+                    <div class="w-full h-[300px] bg-white rounded-lg shadow-md overflow-hidden flex items-center justify-center">
+                        <img src="img/sillyGf.jpg" alt="Memory 5" class="class="w-full h-full object-contain"" onerror="this.src='https://placehold.co/400x400/FFF5F7/C71585?text=Image+Error'">
+                    </div>
+                    <div class="w-full h-[300px] bg-white rounded-lg shadow-md overflow-hidden flex items-center justify-center">
+                        <video width="640" height="360" controls>
+                        <source lt="Memory 6" class="class="w-full h-full object-contain""  src="img/favouriteView.MP4" type="video/mp4">
+                        Your browser does not support the video tag.
+                        </video>
+                    </div>
+
+                </div>
+             </div>
+        </section>
+
+        <!-- Coupon Section -->
+        <section id="coupon">
+            <div class="card max-w-2xl mx-auto text-center fade-in" style="animation-delay: 1.0s;">
+                <div class="p-8 md:p-10 border-b-4 border-dashed border-red-200">
+                    <h2 class="font-playfair text-3xl md:text-4xl text-red-700 mb-4">A Special Coupon</h2>
+                    <p class="text-gray-600 mb-6">Just for you, bbg.</p>
+                    <div class="bg-red-50 p-6 rounded-lg">
+                        <p class="font-semibold text-xl text-red-800">This Coupon is Redeemable For:</p>
+                        <!-- EDIT THE COUPON DETAILS -->
+                        <p class="font-dancing text-4xl md:text-5xl text-red-500 my-4">Unlimited Movie Date</p>
+                        <p class="text-red-700">...Can be today!</p>
+                        <!-- END OF EDITABLE COUPON -->
+                    </div>
+                </div>
+                <div class="p-4 bg-red-100 rounded-b-3xl">
+                    <p class="text-sm text-red-700">Expires: Never | Valid: Always & Forever</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    </div>
+
+    <script>
+
+        const submitButton = document.getElementById('submit-date');
+        const dateInput = document.getElementById('anniversary-input');
+        const errorMessage = document.getElementById('error-message');
+        const anniversaryGate = document.getElementById('anniversary-gate');
+        const mainContent = document.getElementById('main-content');
+
+        // This should match the format in the input: YYYY-MM-DD
+        const correctAnniversary = '2023-04-27';
+
+        submitButton.addEventListener('click', function () {
+            const input = dateInput.value.trim();
+
+            if (input === correctAnniversary) {
+                errorMessage.textContent = '';
+                anniversaryGate.style.opacity = '0';
+                setTimeout(() => {
+                    anniversaryGate.style.display = 'none';
+                    mainContent.classList.remove('hidden');
+                }, 800);
+            } else {
+                errorMessage.textContent = 'Yers Khmeng!! Forgot our date? 😒';
+            }
+        });
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Floating Hearts ---
+            const heartContainer = document.getElementById('heart-container');
+            const heartCount = 20;
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '&#10084;'; // Heart character
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.animationDuration = `${Math.random() * 10 + 5}s`; // 5 to 15 seconds
+                heart.style.animationDelay = `${Math.random() * 5}s`;
+                heart.style.opacity = Math.random();
+                heartContainer.appendChild(heart);
+            }
+
+            // --- Time Together Counter ---
+            const startDate = new Date('2023-04-27T00:00:00');
+
+            function updateCounter() {
+                const now = new Date();
+                const diff = now - startDate;
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = days;
+                document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+            }
+
+            // Update the counter immediately and then every second
+            updateCounter();
+            setInterval(updateCounter, 1000);
+
+            // --- Reasons I Love You ---
+            // EDIT THIS LIST OF REASONS
+            const reasons = [
+                "Your incredible kindness to everyone you meet.",
+                "The way your eyes light up when you smile.",
+                "Your hilarious sense of humor.",
+                "How you can always make me feel better.",
+                "Your passion for your hobbies.",
+                "That you're the most supportive person I know.",
+                "Our late-night conversations about everything and nothing.",
+                "Your strength and resilience."
+            ];
+            // END OF EDITABLE REASONS
+
+            const reasonsList = document.getElementById('reasons-list');
+            reasons.forEach((reason, index) => {
+                setTimeout(() => {
+                    const li = document.createElement('li');
+                    li.className = 'reason-item flex items-start';
+                    // Heart icon before each reason
+                    li.innerHTML = `<svg class="w-6 h-6 text-red-400 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg><span>${reason}</span>`;
+                    reasonsList.appendChild(li);
+                }, index * 400); // Display reasons one by one
+            });
+
+            // --- Fade-in animations on scroll ---
+            const faders = document.querySelectorAll('.fade-in');
+            const appearOptions = {
+                threshold: 0.2,
+                rootMargin: "0px 0px -50px 0px"
+            };
+            const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.style.animationPlayState = 'running';
+                        appearOnScroll.unobserve(entry.target);
+                    }
+                });
+            }, appearOptions);
+
+            faders.forEach(fader => {
+                appearOnScroll.observe(fader);
+            });
+        });
+    </script>
+
+</body>
+</html>
